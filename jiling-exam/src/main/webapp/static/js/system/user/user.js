@@ -2,7 +2,7 @@ var ctx = $('base').attr('href');
  
 $(function(){
 
-	$('#dg_table').datagrid({  
+	$('#user_table').datagrid({  
 	    height: 'auto', 
 	    fitColumns: true,
 	    nowrap: false, 
@@ -26,7 +26,7 @@ $(function(){
 	
 	
 	//设置分页控件 
-	var p = $('#dg_table').datagrid('getPager'); 
+	var p = $('#user_table').datagrid('getPager'); 
 	$(p).pagination({ 
 		pageSize: 15,//每页显示的记录条数，默认为15 
 	    pageList: [10,15,30,50,100],//可以设置每页记录条数的列表 
@@ -51,11 +51,11 @@ var UserHandler = {
 		 var params = {_time: new Date().getTime() };
 		 params.loginName = $.trim($("#userName").val());
 		  
-		 $('#dg_table').datagrid('load',params); 
+		 $('#user_table').datagrid('load',params); 
 	},
 	
 	authz: function(){//授权
-		var rowsChecked = $('#dg_table').datagrid('getChecked');
+		var rowsChecked = $('#user_table').datagrid('getChecked');
 		var len = rowsChecked.length;
 		if(len > 1){
 			tipMsg("authz","请选择单行记录编辑");
@@ -72,7 +72,7 @@ var UserHandler = {
 	beforeEditUser: function (flag){//加载编辑页面
     	var url =  ctx + "/user/beforeEditUser.html";
 		if(flag == 2){//修改
-			var rowsChecked = $('#dg_table').datagrid('getChecked');
+			var rowsChecked = $('#user_table').datagrid('getChecked');
 			var len = rowsChecked.length;
 			if(len > 1){
 				tipMsg("update","请选择单行记录编辑");
@@ -113,7 +113,7 @@ var UserHandler = {
         		if(data && data.status != 0){ 
            			$("#cancleEdit").click(); //隐藏提示窗体
            			me.search();  //表格重新加载
-           			$('#dg_table').datagrid('clearSelections');//清除缓存之前选中的行
+           			$('#user_table').datagrid('clearSelections');//清除缓存之前选中的行
            			
            			var content = (data.flag ? "修改成功" : "添加成功");
            			var id = (data.flag ? "update": "save");
@@ -139,7 +139,7 @@ var UserHandler = {
     deleteUser: function(){//确认删除
     	var me = this;
     	var ids = "";
-    	var rowsChecked = $('#dg_table').datagrid('getChecked');
+    	var rowsChecked = $('#user_table').datagrid('getChecked');
     	for(var i=0,len = rowsChecked.length; i < len; i++ ){
     		ids += (i > 0 ? "," : "");
     		ids += rowsChecked[i].userId;
@@ -153,7 +153,7 @@ var UserHandler = {
     		if(data && data.status != 0){
     			$("#cancleDel").click(); //隐藏提示窗体
     			me.search();  //表格重新加载
-    			$('#dg_table').datagrid('clearSelections');//清除缓存之前选中的行
+    			$('#user_table').datagrid('clearSelections');//清除缓存之前选中的行
     			
     			tipMsg("beforeDeleteUser","删除成功");
     		}
@@ -162,7 +162,7 @@ var UserHandler = {
     
     beforeDeleteUser: function(){//删除之前提示
 	    var me = this;
-    	var rowsChecked = $('#dg_table').datagrid('getChecked');
+    	var rowsChecked = $('#user_table').datagrid('getChecked');
 	    if(null != rowsChecked && rowsChecked.length > 0){
 	    	me.isDeleteTip(); //确认是否删除
 	    	return false;

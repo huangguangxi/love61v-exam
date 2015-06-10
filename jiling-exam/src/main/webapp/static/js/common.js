@@ -131,8 +131,7 @@ function tipMsg(id,content,position){//气泡提示
             type:"GET",
             dataType:"json",
             data: params,
-            success:function(data) {
-            	debugger;
+            success:function(data) { 
             	data = data;
             },
             error:function(data){ 
