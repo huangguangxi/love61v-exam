@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx }/js/jquery-easyui/jquery.easyui.min.js"></script>
  
 <body>
-      <table id="dg_table" data-options="title:'详情',fit:true,border:true" 
+      <table id="user_table" data-options="title:'详情',fit:true,border:true" 
       	cellspacing="0" cellpadding="0" toolbar="#toolbar" style="margin-top:3px;">
         <thead>
             <tr>
@@ -62,9 +62,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a class="btn btn-info" id="beforeDeleteUser" href="javascript:void(0)"  onclick="UserHandler.beforeDeleteUser();">
 					<i class="icon-remove icon-white"></i>删除 
 				</a>
-				<a class="btn btn-info" id="authz" href="javascript:void(0)"  onclick="UserHandler.authz();">
+				<!-- <a class="btn btn-info" id="authz" href="javascript:void(0)"  onclick="UserHandler.authz();">
 					<i class="icon-ok icon-white"></i>授权 
-				</a>
+				</a> -->
 			</span>
 		</div>
 	</div>

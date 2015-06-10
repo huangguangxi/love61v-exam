@@ -63,6 +63,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</li>
 					<li>
 						<a href='javascript:void(0);' onclick="toMain(this);">
+							<i class='icon-cog'></i><span>模块管理</span>
+						</a>
+					</li>
+					<li>
+						<a href='javascript:void(0);' onclick="toMain(this);">
 							<i class='icon-cog'></i><span>权限管理</span>
 						</a>
 					</li>
@@ -153,6 +158,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 
 			if(module_name == "角色管理"){
 				url = "${ctx}/role/list.html" + "?_time=" + new Date().getTime();
+			}else if(module_name == "模块管理"){
+				url = "${ctx}/module/list.html" + "?_time=" + new Date().getTime();
 			}else{
 			 	url = "${ctx}/user/list.html" + "?_time=" + new Date().getTime();
 			}
