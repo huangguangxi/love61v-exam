@@ -20,9 +20,9 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		<result property="createTime" column="CreateTime" />
 		<result property="updateTime" column="UpdateTime" />
 
-		<!-- 存在N+1问题 -->
 		<association property="department" column="deptId"
-			select="com.happy.exam.model.Department.getById" javaType="com.happy.exam.model.Department">
+			select="com.happy.exam.model.Department.getById" 
+			javaType="com.happy.exam.model.Department">
 			<id property="deptId" column="DeptId" />
 			<result property="deptName" column="DeptName" />
 			<result property="parentId" column="ParentId" />
@@ -173,13 +173,13 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     	<![CDATA[
         	DELETE FROM system_user 
         	WHERE
-        		UserId = #{id} 
+        		UserId = #{userId} 
     	]]>
 	</delete>
 
 	<!-- 批量删除 -->
 	<delete id="delete_batch">
-		DELETE FROM system_user WHERE id IN
+		DELETE FROM system_user WHERE UserId IN
 		<foreach item="ids" collection="list" open="(" separator=","
 			close=")">
 			#{ids}

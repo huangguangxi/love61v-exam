@@ -6,6 +6,8 @@
  */
 package com.happy.exam.common.dto;
 
+import java.io.Serializable;
+
 /**
  * datagrid分页时post参数
  *
@@ -13,7 +15,7 @@ package com.happy.exam.common.dto;
  * @author : <a href="mailto:h358911056@qq.com">hubo</a>
  * @date : 2015年6月1日 下午11:54:41
  */
-public class DatagridDto {
+public class DatagridDto implements Serializable{
 
 	private int page; //当前页
 

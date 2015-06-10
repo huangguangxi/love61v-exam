@@ -1,5 +1,7 @@
 package com.happy.exam.dao;  
-import com.happy.exam.dao.BaseDao;
+import java.util.List;
+
+import com.happy.exam.common.bean.ModuleModel;
 import com.happy.exam.model.SystemResource;
 
 /**
@@ -10,5 +12,12 @@ import com.happy.exam.model.SystemResource;
  * @date	: 2015年5月17日 下午9:01:26 
  */
 public interface SystemResourceDao extends BaseDao<SystemResource,java.lang.String>{
+
+	/**
+	 * 查询模块树grid
+	 * @param moduleDto
+	 * @return
+	 */
+	List<ModuleModel> findTreegrid(SystemResource systemResource);
 
 }

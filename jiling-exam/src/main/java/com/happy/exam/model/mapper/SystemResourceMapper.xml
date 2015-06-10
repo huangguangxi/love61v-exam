@@ -14,6 +14,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         <result property="sourceType" column="SourceType"/>
         <result property="status" column="Status"/>
         <result property="remark" column="Remark"/>
+        <result property="sort" column="Sort"/>
         <result property="createTime" column="CreateTime"/>
         <result property="updateTime" column="UpdateTime"/>
 	</resultMap>
@@ -21,7 +22,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-		ResourceId,ResourceName,EngName,ParentId,Path,SourceIcon,SourceType,Status,Remark,CreateTime,UpdateTime
+		ResourceId,ResourceName,EngName,ParentId,Path,SourceIcon,SourceType,Status,Remark,Sort,CreateTime,UpdateTime
 	    ]]>
 	</sql>
 
@@ -38,6 +39,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	        	SourceType ,
 	        	Status ,
 	        	Remark ,
+	        	Sort,
 	        	CreateTime ,
 	        	UpdateTime 
 	        ) VALUES (
@@ -50,6 +52,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	        	#{sourceType} ,
 	        	#{status} ,
 	        	#{remark} ,
+	        	#{sort} ,
 	        	#{createTime} ,
 	        	#{updateTime} 
 	        )
@@ -69,6 +72,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	        		SourceType ,
 	        		Status ,
 	        		Remark ,
+	        		Sort,
 	        		CreateTime ,
 	        		UpdateTime 
 	        ) VALUES 
@@ -84,6 +88,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 					#{item.sourceType} ,
 					#{item.status} ,
 					#{item.remark} ,
+					#{item.sort} ,
 					#{item.createTime} ,
 					#{item.updateTime} 
 	        	)
@@ -117,6 +122,9 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="remark != null and remark != ''">
 				Remark = #{remark} ,
+			</if>
+			<if test="sort != null">
+				Sort = #{sort} ,
 			</if>
 			<if test="createTime != null">
 				CreateTime = #{createTime} ,
@@ -190,6 +198,9 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 				<if test="model.remark != null and model.remark !=''">
 					AND Remark = #{model.remark}
 				</if>
+				<if test="model.sort != null">
+					AND Sort = #{model.sort}
+				</if>
 				<if test="model.createTimeBegin != null">
 					AND CreateTime &gt;= #{model.createTimeBegin}
 				</if>
@@ -225,6 +236,16 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		<if test="offset != null and pageSize != null">
 			LIMIT  #{offset}, #{pageSize}
 		</if>
+	</select>
+	
+	<!-- 查询模块树treegrid -->
+	<select id="findTreegrid" resultType="com.happy.exam.common.bean.ModuleModel">
+		select
+		 ResourceId as id,resourceName,ParentId as _parentId,
+		 path,sourceIcon ,sourceType,status,remark,sort,createTime,updateTime
+		 from system_resource
+		 where status = 1
+		 order by sort
 	</select>
 
 </mapper>

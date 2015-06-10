@@ -54,6 +54,12 @@ public class SystemResource extends BaseModel{
      * @字段:Status TINYINT(3)  
      */	
 	private Integer status;
+	
+	/**
+     * @备注: 顺序   
+     * @字段:Sort INT 
+     */	
+	private Integer sort;
 
 	/**
      * @备注:备注     
@@ -240,5 +246,12 @@ public class SystemResource extends BaseModel{
 	public java.util.Date getUpdateTime() {
 		return this.updateTime;
 	}
-	 
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
 }

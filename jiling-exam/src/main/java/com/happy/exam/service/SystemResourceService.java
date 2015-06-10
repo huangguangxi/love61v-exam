@@ -1,4 +1,7 @@
 package com.happy.exam.service;   
+import java.util.List;
+
+import com.happy.exam.common.bean.ModuleModel;
 import com.happy.exam.model.SystemResource;
 
 /**
@@ -10,4 +13,10 @@ import com.happy.exam.model.SystemResource;
  */
 public interface SystemResourceService extends BaseService<SystemResource,java.lang.String>{
 
+	/**
+	 * 查询模块树grid
+	 * @param moduleDto
+	 * @return 树模块集合
+	 */
+	List<ModuleModel> findTreegrid(SystemResource systemResource);
 }
