@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.happy.exam.model.SystemUser">
+
+	<resultMap id="RM_SystemUser" type="com.happy.exam.model.SystemUser">
+		<result property="userId" column="UserId" />
+		<result property="deptId" column="DeptId" />
+		<result property="loginName" column="LoginName" />
+		<result property="password" column="Password" />
+		<result property="engName" column="EngName" />
+		<result property="userName" column="UserName" />
+		<result property="phoneNumber" column="PhoneNumber" />
+		<result property="email" column="Email" />
+		<result property="sex" column="Sex" />
+		<result property="address" column="Address" />
+		<result property="remark" column="Remark" />
+		<result property="status" column="Status" />
+		<result property="createTime" column="CreateTime" />
+		<result property="updateTime" column="UpdateTime" />
+
+		<association property="department" column="deptId"
+			select="com.happy.exam.model.Department.getById" 
+			javaType="com.happy.exam.model.Department">
+			<id property="deptId" column="DeptId" />
+			<result property="deptName" column="DeptName" />
+			<result property="parentId" column="ParentId" />
+			<result property="areaCode" column="AreaCode" />
+		</association>
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+		UserId,DeptId,LoginName,Password,EngName,UserName,PhoneNumber,Email,Sex,Address,Remark,Status,CreateTime,UpdateTime
+	    ]]>
+	</sql>
+
+	<!--保存 -->
+	<insert id="insert">
+	    <![CDATA[
+	        INSERT INTO system_user (
+	        	UserId ,
+	        	DeptId ,
+	        	LoginName ,
+	        	Password ,
+	        	EngName ,
+	        	UserName ,
+	        	PhoneNumber ,
+	        	Email ,
+	        	Sex ,
+	        	Address ,
+	        	Remark ,
+	        	Status ,
+	        	CreateTime ,
+	        	UpdateTime 
+	        ) VALUES (
+	        	#{userId} ,
+	        	#{deptId} ,
+	        	#{loginName} ,
+	        	#{password} ,
+	        	#{engName} ,
+	        	#{userName} ,
+	        	#{phoneNumber} ,
+	        	#{email} ,
+	        	#{sex} ,
+	        	#{address} ,
+	        	#{remark} ,
+	        	#{status} ,
+	        	#{createTime} ,
+	        	#{updateTime} 
+	        )
+	    ]]>
+	</insert>
+
+	<!-- 批量保存 -->
+	<insert id="insertBatch">
+	    <![CDATA[
+	        INSERT INTO system_user (
+	        		UserId ,
+	        		DeptId ,
+	        		LoginName ,
+	        		Password ,
+	        		EngName ,
+	        		UserName ,
+	        		PhoneNumber ,
+	        		Email ,
+	        		Sex ,
+	        		Address ,
+	        		Remark ,
+	        		Status ,
+	        		CreateTime ,
+	        		UpdateTime 
+	        ) VALUES 
+	         ]]>
+		<foreach item="item" collection="list" separator=",">
+			(
+			#{item.userId} ,
+			#{item.deptId} ,
+			#{item.loginName} ,
+			#{item.password} ,
+			#{item.engName} ,
+			#{item.userName} ,
+			#{item.phoneNumber} ,
+			#{item.email} ,
+			#{item.sex} ,
+			#{item.address} ,
+			#{item.remark} ,
+			#{item.status} ,
+			#{item.createTime} ,
+			#{item.updateTime}
+			)
+		</foreach>
+
+	</insert>
+
+	<!-- update 条件组合 -->
+	<sql id="update_sql">
+		<set>
+			<if test="deptId != null and deptId != ''">
+				DeptId = #{deptId} ,
+			</if>
+			<if test="loginName != null and loginName != ''">
+				LoginName = #{loginName} ,
+			</if>
+			<if test="password != null and password != ''">
+				Password = #{password} ,
+			</if>
+			<if test="engName != null and engName != ''">
+				EngName = #{engName} ,
+			</if>
+			<if test="userName != null and userName != ''">
+				UserName = #{userName} ,
+			</if>
+			<if test="phoneNumber != null and phoneNumber != ''">
+				PhoneNumber = #{phoneNumber} ,
+			</if>
+			<if test="email != null and email != ''">
+				Email = #{email} ,
+			</if>
+			<if test="sex != null and sex != ''">
+				Sex = #{sex} ,
+			</if>
+			<if test="address != null and address != ''">
+				Address = #{address} ,
+			</if>
+			<if test="remark != null and remark != ''">
+				Remark = #{remark} ,
+			</if>
+			<if test="status != null">
+				Status = #{status} ,
+			</if>
+			<if test="createTime != null">
+				CreateTime = #{createTime} ,
+			</if>
+			<if test="updateTime != null">
+				UpdateTime = #{updateTime}
+			</if>
+		</set>
+	</sql>
+
+	<!-- 修改 -->
+	<update id="update">
+		UPDATE system_user
+		<include refid="update_sql" />
+		WHERE
+		UserId = #{userId}
+	</update>
+
+	<!-- 根据ID删除 -->
+	<delete id="delete">
+    	<![CDATA[
+        	DELETE FROM system_user 
+        	WHERE
+        		UserId = #{userId} 
+    	]]>
+	</delete>
+
+	<!-- 批量删除 -->
+	<delete id="delete_batch">
+		DELETE FROM system_user WHERE UserId IN
+		<foreach item="ids" collection="list" open="(" separator=","
+			close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<!-- selsect -->
+	<select id="getById" resultMap="RM_SystemUser">
+		SELECT
+		<include refid="columns" />
+		FROM system_user
+		WHERE
+		UserId = #{id}
+	</select>
+
+	<!-- 模糊查询这样： 字段名 LIKE CONCAT('%',CONCAT(#{model.userName},'%')) -->
+	<sql id="findPage_where">
+		<where>
+			<if test="model.userId != null and model.userId !=''">
+				AND UserId = #{model.userId}
+			</if>
+			<if test="model.deptId != null and model.deptId !=''">
+				AND DeptId = #{model.deptId}
+			</if>
+			<if test="model.loginName != null and model.loginName !=''">
+				AND LoginName LIKE CONCAT('%',CONCAT(#{model.loginName},'%')) 
+			</if>
+			<if test="model.password != null and model.password !=''">
+				AND Password = #{model.password}
+			</if>
+			<if test="model.engName != null and model.engName !=''">
+				AND EngName = #{model.engName}
+			</if>
+			<if test="model.userName != null and model.userName !=''">
+				AND UserName LIKE CONCAT('%',CONCAT(#{model.userName},'%')) 
+			</if>
+			<if test="model.phoneNumber != null and model.phoneNumber !=''">
+				AND PhoneNumber = #{model.phoneNumber}
+			</if>
+			<if test="model.email != null and model.email !=''">
+				AND Email = #{model.email}
+			</if>
+			<if test="model.sex != null and model.sex !=''">
+				AND Sex = #{model.sex}
+			</if>
+			<if test="model.address != null and model.address !=''">
+				AND Address = #{model.address}
+			</if>
+			<if test="model.remark != null and model.remark !=''">
+				AND Remark = #{model.remark}
+			</if>
+			<if test="model.status != null">
+				AND Status = #{model.status}
+			</if>
+			<if test="model.createTimeBegin != null">
+				AND CreateTime &gt;= #{model.createTimeBegin}
+			</if>
+			<if test="model.createTimeEnd != null">
+				AND CreateTime &lt;= #{model.createTimeEnd}
+			</if>
+			<if test="model.updateTimeBegin != null">
+				AND UpdateTime &gt;= #{model.updateTimeBegin}
+			</if>
+			<if test="model.updateTimeEnd != null">
+				AND UpdateTime &lt;= #{model.updateTimeEnd}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 获取总数 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(1)
+		FROM system_user
+		<include refid="findPage_where" />
+	</select>
+
+	<select id="findPage" resultMap="RM_SystemUser">
+		SELECT
+		<include refid="columns" />
+		FROM system_user
+		<include refid="findPage_where" />
+
+		<if test="model.sortColumns != null and model.sortColumns !=''">
+			ORDER BY ${model.sortColumns}
+		</if>
+
+		<if test="offset != null and pageSize != null">
+			LIMIT #{offset}, #{pageSize}
+		</if>
+	</select>
+
+</mapper>

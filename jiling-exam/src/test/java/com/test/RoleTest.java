@@ -18,8 +18,10 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import com.alibaba.fastjson.JSON;
 import com.happy.exam.common.utils.Md5;
 import com.happy.exam.common.utils.UUIDutils;
+import com.happy.exam.model.SystemResource;
 import com.happy.exam.model.SystemRole;
 import com.happy.exam.model.SystemUser;
+import com.happy.exam.service.SystemResourceService;
 import com.happy.exam.service.SystemRoleService;
  
 
@@ -38,6 +40,23 @@ public class RoleTest {
 
 	@Autowired 
 	private SystemRoleService systemRoleService;
+	
+	@Autowired
+	private SystemResourceService systemResourceService;
+	
+	@Test public void saveModuleTest(){
+		SystemResource m = new SystemResource();
+		m.setCreateTime(new java.util.Date());
+		m.setResourceId(UUIDutils.getUUID());
+		m.setResourceName("修改密码");
+		m.setSort(1);
+		m.setStatus(1);
+		m.setEngName("user_change_password".toUpperCase());
+		m.setPath("/user/changePassword.html");
+		m.setParentId("18676996EAE342E5BBFEB22829FE1177");
+		
+		//systemResourceService.save(m);
+	}
  
 	
 	/**
