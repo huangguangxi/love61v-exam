@@ -19,4 +19,11 @@ public interface SystemResourceService extends BaseService<SystemResource,java.l
 	 * @return 树模块集合
 	 */
 	List<ModuleModel> findTreegrid(SystemResource systemResource);
+	
+	/**
+	 * 删除节点与子节点
+	 * @param systemResource
+	 * @return
+	 */
+	int deleteUnion(SystemResource systemResource);
 }

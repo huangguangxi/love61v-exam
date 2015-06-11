@@ -27,6 +27,11 @@ public class SystemResourceServiceImpl extends MybatisBaseServiceImpl<SystemReso
 	public List<ModuleModel> findTreegrid(SystemResource systemResource) {
 		
 		return systemResourceDao.findTreegrid(systemResource);
+	}
+
+	@Override
+	public int deleteUnion(SystemResource systemResource) {
+		return systemResourceDao.deleteUnion(systemResource);
 	} 
 
 }

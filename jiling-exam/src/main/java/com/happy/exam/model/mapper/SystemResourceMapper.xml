@@ -146,14 +146,33 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	<delete id="delete">
     	<![CDATA[
         	DELETE FROM system_resource 
-        	WHERE
-        		ResourceId = #{id} 
     	]]>
+    		<where>
+       		<if test="resourceId != null and resourceId !=''">
+					AND ResourceId = #{resourceId}
+				</if>
+       		<if test="parentId != null and parentId !=''">
+					OR ParentId = #{resourceId}
+			</if>
+       	</where>
+	</delete>
+	
+	<!-- 删除节点与子节点 -->
+	<delete id="deleteUnion">
+       	DELETE FROM system_resource 
+       	<where>
+       		<if test="resourceId != null and resourceId !=''">
+					AND ResourceId = #{resourceId}
+				</if>
+       		<if test="parentId != null and parentId !=''">
+					OR ParentId = #{parentId}
+			</if>
+       	</where> 
 	</delete>
 	
 	<!-- 批量删除 -->
 	<delete id="delete_batch">
-        DELETE FROM system_resource WHERE id IN 
+        DELETE FROM system_resource WHERE ResourceId IN 
         <foreach item="ids" collection="list" open="(" separator="," close=")">
 			#{ids}
 		</foreach>

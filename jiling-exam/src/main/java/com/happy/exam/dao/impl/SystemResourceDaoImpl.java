@@ -16,14 +16,22 @@ import com.happy.exam.model.SystemResource;
  */
 @Repository
 public class SystemResourceDaoImpl extends MybatisBaseDaoImpl<SystemResource, java.lang.String> implements SystemResourceDao {
-
-	/*mapper文件中的查询语句名称*/
-	private final String FIND_TREE_GRID = SystemResource.class.getName() + ".findTreegrid";
+	 
+	private final String CLZZ_NAME = SystemResource.class.getName();
+	
+	private final String FIND_TREE_GRID = CLZZ_NAME + ".findTreegrid";
+	
+	private final String DELETE_UNION = CLZZ_NAME + ".deleteUnion";
 	
 	@Override
 	public List<ModuleModel> findTreegrid(SystemResource systemResource) {
 		
 		return this.getSqlSessionTemplate().selectList(FIND_TREE_GRID, systemResource);
+	}
+
+	@Override
+	public int deleteUnion(SystemResource systemResource) {
+		return  this.getSqlSessionTemplate().delete(DELETE_UNION, systemResource);
 	} 
 
 }

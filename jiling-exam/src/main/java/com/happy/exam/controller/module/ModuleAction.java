@@ -6,7 +6,7 @@
  */
 package com.happy.exam.controller.module;
 
-import java.util.Arrays;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -81,12 +81,19 @@ public class ModuleAction extends BaseAction {
 	 * @param model
 	 * @param request
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "/beforeEditModule.html", method = RequestMethod.GET)
-	public String beforeEditModule(Model model, String moduleId,String flag) {
+	public String beforeEditModule(Model model, String moduleId,String pname,String pid,String flag) throws UnsupportedEncodingException {
 		if(StringUtils.isNotBlank(flag) && flag.equals("2")){//修改用户信息回选
 			SystemResource module = systemResourceService.getById(moduleId, SystemResource.class);
 			model.addAttribute("module", module);
+		}
+		
+		model.addAttribute("flag", flag);
+		model.addAttribute("pid", pid);
+		if(StringUtils.isNotBlank(pname)){
+			model.addAttribute("pname", java.net.URLDecoder.decode(pname,"UTF-8"));
 		}
 		
 		return "/system/module/edit";
@@ -124,20 +131,19 @@ public class ModuleAction extends BaseAction {
 	}
 	
 	/**
-	 * 删除用户
+	 * 删除模块
 	 *
 	 * @author 	: <a href="mailto:h358911056@qq.com">hubo</a>  2015年6月7日 下午3:30:41
-	 * @param ids id串
+	 * @param id  当前选中节点的id
+	 * @param parnetId  不为空则上节点为父节点，则删除自身与其下所有子节点
 	 * @return
 	 */
 	@RequestMapping(value="/deleteModule.json",method=RequestMethod.POST)
-	@ResponseBody public Map<String, Object> deleteModule(String ids){
+	@ResponseBody public Map<String, Object> deleteModule(SystemResource module){
 		Map<String, Object> map = getStatusMap();
 		
-		if(StringUtils.isNotBlank(ids)){
-			String [] idArr = ids.split(",");
-			int count = systemResourceService.deleteBatch(Arrays.asList(idArr), SystemResource.class);
-			
+		if(StringUtils.isNotBlank(module.getResourceId())){
+			int count = systemResourceService.deleteUnion(module);
 			map.put("status", count);
 		}
 		

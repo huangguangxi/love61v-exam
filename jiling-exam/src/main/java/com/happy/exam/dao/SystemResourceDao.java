@@ -20,4 +20,11 @@ public interface SystemResourceDao extends BaseDao<SystemResource,java.lang.Stri
 	 */
 	List<ModuleModel> findTreegrid(SystemResource systemResource);
 
+	/**
+	 * 删除节点与子节点
+	 * @param systemResource
+	 * @return
+	 */
+	int deleteUnion(SystemResource systemResource);
+
 }
