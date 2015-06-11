@@ -16,15 +16,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <base href="<%=basePath%>">
 
 <title>模块管理</title>
-<link href='${ctx}/css/bootstrap/bootstrap.css' media='all' rel='stylesheet' type='text/css' /> 
 <link rel="stylesheet" type="text/css" href="${ctx }/css/icon.css">
-<link rel="stylesheet" type="text/css" href="${ctx }/js/jquery-easyui/themes/default/easyui.css">
-<script type="text/javascript" src="${ctx }/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" type="text/css" href="${ctx }/js/jquery-easyui/themes/bootstrap/easyui.css">
+
+<!--[if lt IE 9]>
+    <script src='${ctx}js/html5shiv.js' type='text/javascript'></script>
+<![endif]-->
+<link href='${ctx}/css/bootstrap/bootstrap.css' media='all' rel='stylesheet' type='text/css' />
+<link href='${ctx}/css/bootstrap/bootstrap-responsive.css' media='all' rel='stylesheet' type='text/css' />
 <script type="text/javascript" src="${ctx }/js/jquery-easyui/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/jquery-easyui/jquery.easyui.min.js"></script>
- 
+<script src="${ctx}/js/bootstrap/bootstrap.min.js"></script>
+<script src='${ctx}/js/common.js' type='text/javascript'></script>
+
+</head>
 <body>
-	  <table id="module_table" data-options="title:'详情   (请右键编辑树)',fit:true,border:true" cellspacing="0" cellpadding="0">
+	<table id="module_table" data-options="title:'详情   (请右键编辑树)',fit:true,border:true" cellspacing="0" cellpadding="0">
         <thead>
 			<tr>
 				<th data-options="field:'resourceName',width:80">名称</th>
@@ -38,25 +45,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	
    	<!-- 右键菜单 -->
    	<div id="module_menu" class="easyui-menu" style="width:120px;">
-		<div onclick="append()"><i class="icon-plus"></i>添加</div>
+		<div onclick="ModuleHandler.beforeEditModule(1);"><i class="icon-plus"></i>添加</div>
 		<div class="menu-sep"></div>
-		<div onclick="removeIt()"><i class="icon-edit"></i>修改</div>
+		<div onclick="ModuleHandler.beforeEditModule(2);"><i class="icon-edit"></i>修改</div>
 		<div class="menu-sep"></div>
-		<div onclick="removeIt()"><i class="icon-remove"></i>删除</div>
+		<div onclick="ModuleHandler.beforeDeleteModule();"><i class="icon-remove"></i>删除</div>
 		<div class="menu-sep"></div>
-		<div onclick="collapse()"> <i class="icon-folder-close"></i>收缩</div>
+		<div onclick="collapse('module_table')"> <i class="icon-folder-close"></i>收缩</div>
 		<div class="menu-sep"></div>
-		<div onclick="expand()"><i class="icon-folder-open"></i>展开</div>
+		<div onclick="expand('module_table')"><i class="icon-folder-open"></i>展开</div>
 	</div>
     
     
-    <!-- 用户编辑 -->
+    <!--模块编辑 -->
  <div class="modal fade" id="editModule">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" id="cancleEditModule"  data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title"><span style="color:blue;">编辑用户</span></h4>
+        <h4 class="modal-title"><span style="color:blue;">编辑模块</span></h4>
       </div>
       <!-- remote加载的页面渲染到此容器中 -->
        <div class="modal-body"></div>
@@ -82,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <p><h3 style="color:red">你确定删除吗?</h3></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" id="cancleDel" data-dismiss="modal">
+        <button type="button" class="btn btn-danger" id="cancleDelModule" data-dismiss="modal">
         	<i class="icon-remove icon-white"></i>取消
         </button>
         <button type="button" class="btn btn-success" onclick="ModuleHandler.deleteModule()">
@@ -92,11 +99,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-    
-<script src="${ctx}/js/bootstrap/bootstrap.min.js"></script>
-<script src='${ctx}/js/plugins/validate/jquery.validate.min.js' type='text/javascript'></script>
-<script src='${ctx}/js/plugins/validate/additional-methods.js' type='text/javascript'></script>
-<script src='${ctx}/js/common.js' type='text/javascript'></script>
-<script src='${ctx}/js/system/module/module.js' type='text/javascript'></script>
+
+
+<script src='${ctx}/js/system/module/module.js' type='text/javascript'></script> 
 </body>
 </html>

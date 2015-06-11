@@ -137,4 +137,3 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src='${ctx}/js/system/user/user.js' type='text/javascript'></script>
 </body>
 </html>
-

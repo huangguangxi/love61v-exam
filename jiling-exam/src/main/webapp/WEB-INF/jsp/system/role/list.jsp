@@ -15,17 +15,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <base href="<%=basePath%>">
 
-<title>角色管理</title>
 <link href='${ctx}/css/bootstrap/bootstrap.css' media='all' rel='stylesheet' type='text/css' /> 
 <link rel="stylesheet" type="text/css" href="${ctx }/css/icon.css">
-<link href='${ctx }/css/light-theme.css'
-	id='color-settings-body-color' media='all' rel='stylesheet'
-	type='text/css' />
-<link rel="stylesheet" type="text/css" href="${ctx }/js/jquery-easyui/themes/default/easyui.css">
+<link href='${ctx }/css/light-theme.css' id='color-settings-body-color' media='all' rel='stylesheet' type='text/css' />
+<%-- <link rel="stylesheet" type="text/css" href="${ctx }/js/jquery-easyui/themes/default/easyui.css"> --%>
+<link rel="stylesheet" type="text/css" href="${ctx }/js/jquery-easyui/themes/bootstrap/easyui.css">
+<link rel="stylesheet" type="text/css" href="${ctx }/js/jquery-easyui/themes/bootstrap/datalist.css">
+
 <script type="text/javascript" src="${ctx }/js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="${ctx }/js/jquery-easyui/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/jquery-easyui/jquery.easyui.min.js"></script>
- 
+
+
+<title>角色管理</title>
+</head>
 <body>
       <table id="role_table" data-options="title:'详情',fit:true,border:true" 
       	cellspacing="0" cellpadding="0" toolbar="#role_toolbar" style="margin-top:3px;">
@@ -104,12 +107,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-    
+
 <script src="${ctx}/js/bootstrap/bootstrap.min.js"></script>
 <script src='${ctx}/js/plugins/validate/jquery.validate.min.js' type='text/javascript'></script>
 <script src='${ctx}/js/plugins/validate/additional-methods.js' type='text/javascript'></script>
 <script src='${ctx}/js/common.js' type='text/javascript'></script>
 <script src='${ctx}/js/system/role/role.js' type='text/javascript'></script>
+
 </body>
 </html>
-

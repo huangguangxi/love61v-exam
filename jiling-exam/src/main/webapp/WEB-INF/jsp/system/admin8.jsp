@@ -15,27 +15,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <base href="<%=basePath%>">
 <title>在线考试管理平台</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta
-	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-	name='viewport' />
+<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport' />
 
 <link rel="stylesheet" type="text/css" href="${ctx }/css/icon.css">
-<link rel="stylesheet" type="text/css"
-	href="${ctx }/js/jquery-easyui/themes/default/easyui.css">
-<script type="text/javascript"
-	src="${ctx }/js/jquery-easyui/jquery.min.js"></script>
-<script type="text/javascript"
-	src="${ctx }/js/jquery-easyui/jquery.easyui.min.js"></script>
-	
+<link rel="stylesheet" type="text/css" href="${ctx }/js/jquery-easyui/themes/default/easyui.css">
 
 <!--[if lt IE 9]>
     <script src='${ctx}js/html5shiv.js' type='text/javascript'></script>
 <![endif]-->
-<link href='${ctx}/css/bootstrap/bootstrap.css' media='all'
-	rel='stylesheet' type='text/css' />
-<link href='${ctx}/css/bootstrap/bootstrap-responsive.css' media='all'
-	rel='stylesheet' type='text/css' />
+<link href='${ctx}/css/bootstrap/bootstrap.css' media='all' rel='stylesheet' type='text/css' />
+<link href='${ctx}/css/bootstrap/bootstrap-responsive.css' media='all' rel='stylesheet' type='text/css' />
+	
+<script type="text/javascript" src="${ctx }/js/jquery-easyui/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx }/js/jquery-easyui/jquery.easyui.min.js"></script>
+<script src="${ctx}/js/bootstrap/bootstrap.min.js"></script>
+<script src='${ctx}/js/common.js' type='text/javascript'></script>
 
+<!-- zTree -->
+<%-- <link rel="stylesheet" href="${ctx }/js/plugins/zTree3/css/demo.css" type="text/css">
+<link rel="stylesheet" href="${ctx }/js/plugins/zTree3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="${ctx }/js/plugins/zTree3/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="${ctx }/js/plugins/zTree3/js/jquery.ztree.core-3.5.min.js"></script>
+<script type="text/javascript" src="${ctx }/js/plugins/zTree3/js/jquery.ztree.excheck-3.5.js"></script> --%>
 </head>
 
 <body class="easyui-layout contrast-sea-blue">
@@ -143,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			data-options="fit:true,border:false,pill:false"></div>
 	</div>
 	
-<script src="${ctx}/js/bootstrap/bootstrap.min.js"></script>
+
 	<script type="text/javascript">
 		/*根据模块导航到主窗体*/
 		function toMain(obj) {

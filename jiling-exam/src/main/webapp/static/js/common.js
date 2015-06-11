@@ -107,80 +107,7 @@ function tipMsg(id,content,position){//气泡提示
 	
 	$(id).popover('show'); //显示提示框
 };
-	
-	/**
-	 * GET方式请求后台REST公共方法
-	 * 
-	 * @param url
-	 *            请求路径
-	 * @param params
-	 *            请求参数(拼接字符串/json对象/json数组)
-	 * @param async
-	 * 			  是否异步(true/false),默认为false
-	 * @returns json对象
-	 */
-	function doGet(url,params,async){
-		var isAsync = false;
-		if(async == true){
-			isAsync = async;
-		}
-		var data ;
-		$.ajax({
-            url: url,
-            async:isAsync,
-            type:"GET",
-            dataType:"json",
-            data: params,
-            success:function(data) { 
-            	data = data;
-            },
-            error:function(data){ 
-            	//403强制刷新页面
-            	if(data.status == 403){
-            		window.location.href = RESTCTX;
-            	};
-            	data = "error:" + data.status;
-            }
-		});
-		return data;
-	}
-	
-	/**
-	 * POST方式请求后台REST公共方法
-	 * 
-	 * @param url
-	 *            请求路径
-	 * @param params
-	 *            请求参数(拼接字符串/json对象/json数组)
-	 * @param async
-	 * 			  是否异步,默认为false
-	 * @returns json对象
-	 */
-	function doPost(url,params,async){
-		var isAsync = false;
-		if(async == true){
-			isAsync = async;
-		}
-		var data ;
-		$.ajax({
-			url: url,
-			async:isAsync,
-			type:"POST",
-			dataType:"json",
-			data: params,
-			success:function(data) {
-				data = data;
-			},
-			error:function(data){ 
-				//403强制刷新页面
-				if(data.status == 403){
-            		window.location.href = RESTCTX;
-            	};
-				data = "error:" + data.status;
-			}
-		});
-		return data;
-	};
+	 
 	
 	function formatStatus(val,row,index){//格式化性别
 		return val == 1 ? '应用' : '禁用';
@@ -191,4 +118,23 @@ function tipMsg(id,content,position){//气泡提示
 		if(time){ 
 			return new Date(val).format('yyyy-MM-dd HH:mm:ss');
 		} 
-	}
+	};
+	
+	/**
+	 * treegrid展示与收缩事件
+	 * 
+	 * @param id treegrid的id
+	 */
+	function collapse(id){
+		var node = $('#' + id).treegrid('getSelected');
+		if (node){
+			$('#' + id).treegrid('collapse', node.id);
+		}
+	};
+	
+	function expand(id){
+		var node = $('#' + id).treegrid('getSelected');
+		if (node){
+			$('#' + id).treegrid('expand', node.id);
+		}
+	};
